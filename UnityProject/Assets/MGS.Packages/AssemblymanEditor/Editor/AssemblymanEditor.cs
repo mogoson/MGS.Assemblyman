@@ -35,9 +35,9 @@ namespace MGS.Assemblyman
         private Dictionary<string, List<string>> refByAssems = new Dictionary<string, List<string>>();
         private List<string> refrefAssems = new List<string>();
 
-        private readonly string[] ignores = new string[] { "System", "Unity" };
+        private const string SYSTEM = "System";
+        private string filter = "System,Unity";
         private string keyword = string.Empty;
-
         private Vector2 scrollPos = Vector2.zero;
         #endregion
 
@@ -68,15 +68,17 @@ namespace MGS.Assemblyman
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
             {
-                if (CheckContainsKeyword(assembly.FullName, ignores))
+                if (!string.IsNullOrEmpty(filter))
                 {
-                    continue;
+                    if (CheckContainsKeyword(assembly.FullName, filter))
+                    {
+                        continue;
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(keyword))
                 {
-                    var keywords = keyword.Split(',');
-                    if (!CheckContainsKeyword(assembly.FullName, keywords))
+                    if (!CheckContainsKeyword(assembly.FullName, keyword))
                     {
                         continue;
                     }
@@ -87,11 +89,22 @@ namespace MGS.Assemblyman
                 foreach (var refAssembly in refAssemblies)
                 {
                     refAssems[assembly.FullName].Add(refAssembly.FullName);
-                    if (!refByAssems.ContainsKey(refAssembly.FullName))
+                }
+
+                if (!assembly.FullName.Contains(SYSTEM))
+                {
+                    foreach (var refAssembly in refAssemblies)
                     {
-                        refByAssems.Add(refAssembly.FullName, new List<string>());
+                        if (refAssembly.FullName.Contains(SYSTEM))
+                        {
+                            continue;
+                        }
+                        if (!refByAssems.ContainsKey(refAssembly.FullName))
+                        {
+                            refByAssems.Add(refAssembly.FullName, new List<string>());
+                        }
+                        refByAssems[refAssembly.FullName].Add(assembly.FullName);
                     }
-                    refByAssems[refAssembly.FullName].Add(assembly.FullName);
                 }
             }
             #endregion
@@ -116,10 +129,11 @@ namespace MGS.Assemblyman
             #endregion
         }
 
-        private bool CheckContainsKeyword(string value, string[] keyword)
+        private bool CheckContainsKeyword(string value, string keyword)
         {
+            var keywords = keyword.Split(',');
             value = value.ToLower();
-            foreach (var key in keyword)
+            foreach (var key in keywords)
             {
                 if (value.Contains(key.ToLower().Trim()))
                 {
@@ -141,17 +155,21 @@ namespace MGS.Assemblyman
         private void DrawToolbar()
         {
             GUILayout.BeginHorizontal();
-
-            GUILayout.FlexibleSpace();
-            GUILayout.Label("Q");
-
+            GUILayout.Label("}{", GUILayout.Width(20));
             EditorGUI.BeginChangeCheck();
-            keyword = GUILayout.TextField(keyword, GUILayout.Width(240));
+            filter = GUILayout.TextField(filter, GUILayout.ExpandWidth(true));
             if (EditorGUI.EndChangeCheck())
             {
                 RefreshAssemblyInfo();
             }
 
+            GUILayout.Label("Q", GUILayout.Width(15));
+            EditorGUI.BeginChangeCheck();
+            keyword = GUILayout.TextField(keyword, GUILayout.ExpandWidth(true));
+            if (EditorGUI.EndChangeCheck())
+            {
+                RefreshAssemblyInfo();
+            }
             GUILayout.EndHorizontal();
         }
 
@@ -177,7 +195,10 @@ namespace MGS.Assemblyman
 
             if (refByAssems.ContainsKey(refAssem.Key))
             {
-                DrawTextArea(string.Empty, Color.gray, 2);
+                if (refAssem.Value.Count > 0)
+                {
+                    DrawTextArea("-><-", Color.gray);
+                }
                 DrawAssemblyArea(refByAssems[refAssem.Key]);
             }
         }
@@ -195,11 +216,11 @@ namespace MGS.Assemblyman
             }
         }
 
-        private void DrawTextArea(string text, Color color, float height = 0)
+        private void DrawTextArea(string text, Color color)
         {
             var origin = GUI.color;
             GUI.color = color;
-            GUILayout.TextArea(text, GUILayout.Height(height));
+            GUILayout.TextArea(text);
             GUI.color = origin;
         }
         #endregion
