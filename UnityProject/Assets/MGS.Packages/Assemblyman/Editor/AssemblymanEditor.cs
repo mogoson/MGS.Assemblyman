@@ -195,10 +195,7 @@ namespace MGS.Assemblyman
 
             if (refByAssems.ContainsKey(refAssem.Key))
             {
-                if (refAssem.Value.Count > 0)
-                {
-                    DrawTextArea("-><-", Color.gray);
-                }
+                DrawTextArea("-><-", Color.gray);
                 DrawAssemblyArea(refByAssems[refAssem.Key]);
             }
         }
