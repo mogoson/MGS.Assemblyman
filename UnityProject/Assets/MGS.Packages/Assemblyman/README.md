@@ -22,6 +22,10 @@
 4. The workspace view will show assemblies references infos.
 5. If assemblies reference is mutual, it will be show as red color.
 
+## Source
+
+- https://github.com/mogoson/MGS.Assemblyman
+
 ------
 
 Copyright © 2022 Mogoson.	mogoson@outlook.com
