@@ -34,6 +34,7 @@ namespace MGS.Assemblyman
         private Dictionary<string, List<string>> refAssems = new Dictionary<string, List<string>>();
         private Dictionary<string, List<string>> refByAssems = new Dictionary<string, List<string>>();
         private List<string> refrefAssems = new List<string>();
+        private List<string> selectAssems = new List<string>();
 
         private const string SYSTEM = "System";
         private string filter = "System,Unity";
@@ -44,7 +45,8 @@ namespace MGS.Assemblyman
         #region
         private void OnEnable()
         {
-            RefreshAssemblyInfo();
+            CollectAssemblyInfo();
+            ReselectAssemblyInfo();
         }
 
         private void OnGUI()
@@ -60,30 +62,12 @@ namespace MGS.Assemblyman
         #endregion
 
         #region
-        private void RefreshAssemblyInfo()
+        private void CollectAssemblyInfo()
         {
-            ClearAssemblyInfo();
-
             #region
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
             {
-                if (!string.IsNullOrEmpty(filter))
-                {
-                    if (CheckContainsKeyword(assembly.FullName, filter))
-                    {
-                        continue;
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(keyword))
-                {
-                    if (!CheckContainsKeyword(assembly.FullName, keyword))
-                    {
-                        continue;
-                    }
-                }
-
                 refAssems.Add(assembly.FullName, new List<string>());
                 var refAssemblies = assembly.GetReferencedAssemblies();
                 foreach (var refAssembly in refAssemblies)
@@ -129,6 +113,32 @@ namespace MGS.Assemblyman
             #endregion
         }
 
+        private void ReselectAssemblyInfo()
+        {
+            selectAssems.Clear();
+
+            foreach (var refAssem in refAssems)
+            {
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    if (CheckContainsKeyword(refAssem.Key, filter))
+                    {
+                        continue;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    if (!CheckContainsKeyword(refAssem.Key, keyword))
+                    {
+                        continue;
+                    }
+                }
+
+                selectAssems.Add(refAssem.Key);
+            }
+        }
+
         private bool CheckContainsKeyword(string value, string keyword)
         {
             var keywords = keyword.Split(',');
@@ -142,13 +152,6 @@ namespace MGS.Assemblyman
             }
             return false;
         }
-
-        private void ClearAssemblyInfo()
-        {
-            refAssems.Clear();
-            refByAssems.Clear();
-            refrefAssems.Clear();
-        }
         #endregion
 
         #region
@@ -160,7 +163,7 @@ namespace MGS.Assemblyman
             filter = GUILayout.TextField(filter, GUILayout.ExpandWidth(true));
             if (EditorGUI.EndChangeCheck())
             {
-                RefreshAssemblyInfo();
+                ReselectAssemblyInfo();
             }
 
             GUILayout.Label("Q", GUILayout.Width(15));
@@ -168,7 +171,7 @@ namespace MGS.Assemblyman
             keyword = GUILayout.TextField(keyword, GUILayout.ExpandWidth(true));
             if (EditorGUI.EndChangeCheck())
             {
-                RefreshAssemblyInfo();
+                ReselectAssemblyInfo();
             }
             GUILayout.EndHorizontal();
         }
@@ -178,7 +181,10 @@ namespace MGS.Assemblyman
             scrollPos = GUILayout.BeginScrollView(scrollPos);
             foreach (var refAssem in refAssems)
             {
-                DrawAssemblyArea(refAssem);
+                if (selectAssems.Contains(refAssem.Key))
+                {
+                    DrawAssemblyArea(refAssem);
+                }
             }
             GUILayout.EndScrollView();
             GUILayout.Space(5);
