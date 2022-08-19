@@ -145,7 +145,12 @@ namespace MGS.Assemblyman
             value = value.ToLower();
             foreach (var key in keywords)
             {
-                if (value.Contains(key.ToLower().Trim()))
+                var trimKey = key.Trim();
+                if (string.IsNullOrEmpty(trimKey))
+                {
+                    continue;
+                }
+                if (value.Contains(trimKey.ToLower()))
                 {
                     return true;
                 }
