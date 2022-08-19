@@ -12,7 +12,7 @@
 ## Demand
 - Show assemblies reference by a lib.
 - Show assemblies reference to a lib.
-- Show assemblies mutual.
+- Show assemblies reference mutual.
 
 ## Usage
 
@@ -20,7 +20,11 @@
 2. Input keywords into the left text box to filter the assemblies that you do not wan to care.
 3. Input keywords into the right text box to select the assemblies that you need care.
 4. The workspace view will show assemblies references infos.
-5. If assemblies reference is mutual, it will be show as red color.
+   - Main assemblies show as white color.
+   - Reference assemblies show as gray color.
+     - Assemblies referenced by the main assembly show before the separator "-><-" line.
+     - Assemblies referenced to the main assembly show after the separator "-><-" line.
+   - Reference mutual assemblies show as red color.
 
 ## Source
 
