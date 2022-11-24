@@ -22,7 +22,7 @@ namespace MGS.Assemblyman
         #region
         private static AssemblymanEditor instance;
 
-        [MenuItem("Tool/Assemblyman &M")]
+        [MenuItem("Tool/Assemblyman &A")]
         private static void ShowEditor()
         {
             instance = GetWindow<AssemblymanEditor>("Assemblyman");
