@@ -1,4 +1,7 @@
+[TOC]
+
 # MGS.Assemblyman
+
 ## Summary
 - Editor to analyse assembly.
 
@@ -8,6 +11,10 @@
 
 ## Platform
 - Windows.
+
+## Version
+
+- 0.3.0
 
 ## Demand
 - Show assemblies reference by a lib.
