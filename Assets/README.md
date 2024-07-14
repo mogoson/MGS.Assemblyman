@@ -33,10 +33,6 @@
      - Assemblies referenced to the main assembly show after the separator "-><-" line.
    - Reference mutual assemblies show as red color.
 
-## Source
-
-- https://github.com/mogoson/MGS.Assemblyman
-
 ------
 
-Copyright © 2022 Mogoson.	mogoson@outlook.com
+Copyright © 2024 Mogoson. mogoson@outlook.com

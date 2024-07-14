@@ -1,0 +1,7 @@
+{
+    "description": "Editor to analyse assembly.",
+    "displayName": "AssemblyMan",
+    "name": "com.mgs.assemblyman",
+    "unity": "2019.4",
+    "version": "1.0.0"
+}
