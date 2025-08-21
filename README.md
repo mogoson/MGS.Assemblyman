@@ -5,9 +5,6 @@
 ## Summary
 - Editor to analyse assembly.
 
-## Environment
-- Unity 2021.3 or above.
-
 ## Demand
 - Show assemblies reference by a lib.
 - Show assemblies reference to a lib.
