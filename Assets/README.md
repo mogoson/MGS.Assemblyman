@@ -6,15 +6,7 @@
 - Editor to analyse assembly.
 
 ## Environment
-- Unity 5.0 or above.
-- .Net Framework 3.5 or above.
-
-## Platform
-- Windows.
-
-## Version
-
-- 0.3.0
+- Unity 2021.3 or above.
 
 ## Demand
 - Show assemblies reference by a lib.
@@ -35,4 +27,4 @@
 
 ------
 
-Copyright © 2024 Mogoson. mogoson@outlook.com
+Copyright © 2025 Mogoson.	mogoson@outlook.com
