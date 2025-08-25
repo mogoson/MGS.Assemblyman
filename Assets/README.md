@@ -5,7 +5,7 @@
 ## Summary
 - Editor to analyse assembly.
 
-## Demand
+## Ability
 - Show assemblies reference by a lib.
 - Show assemblies reference to a lib.
 - Show assemblies reference mutual.
