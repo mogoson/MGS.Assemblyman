@@ -1,7 +1,17 @@
 {
-    "description": "Editor to analyse assembly.",
-    "displayName": "AssemblyMan",
     "name": "com.mgs.assemblyman",
+    "version": "1.0.0",
+    "displayName": "AssemblyMan",
+    "description": "Editor to analyse assembly",
     "unity": "2021.3",
-    "version": "1.0.0"
+    "keywords": [
+        "assembly",
+        "analyse",
+        "mutual"
+    ],
+    "author": {
+        "name": "Mogoson",
+        "email": "mogoson@outlook.com",
+        "url": "https://github.com/mogoson"
+    }
 }
