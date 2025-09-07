@@ -10,6 +10,14 @@
 - Show assemblies reference to a lib.
 - Show assemblies reference mutual.
 
+## Install
+
+- Unity --> Window --> Package Manager --> "+" --> Add package from git URL...
+
+  ```text
+  https://github.com/mogoson/MGS.Assemblyman.git?path=/Assets
+  ```
+
 ## Usage
 
 1. Find the menu item "Tool/Assemblyman" in Unity editor menu bar and click it or press key combination Alt+M to open the "Assemblyman" editor window.
