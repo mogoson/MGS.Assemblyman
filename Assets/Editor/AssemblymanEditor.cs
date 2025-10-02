@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace MGS.Assemblyman
+namespace MGS.Assemblyman.Editors
 {
     public sealed class AssemblymanEditor : EditorWindow
     {
